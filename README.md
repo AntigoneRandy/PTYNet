@@ -1,5 +1,5 @@
 # PTYNet
-This repository includes official PyTorch implementation of the paper "Free Fine-tuning: A Plug-and-Play Watermarking Scheme for Deep Neural Networks". \[[arXiv]()\]
+This repository includes official PyTorch implementation of the paper "Free Fine-tuning: A Plug-and-Play Watermarking Scheme for Deep Neural Networks". \[[arXiv](http://arxiv.org/abs/2210.07809)\]
 
 ## Get Started
 
@@ -15,7 +15,7 @@ After activating conda environment, please install the dependencies running the 
 pip install -r requirements.txt
 ```
 
-
+Our models and datasets will be available soon.
 
 
 
