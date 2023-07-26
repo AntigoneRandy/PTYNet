@@ -1,5 +1,5 @@
 # PTYNet
-This repository includes official PyTorch implementation of the paper "Free Fine-tuning: A Plug-and-Play Watermarking Scheme for Deep Neural Networks". \[[arXiv](http://arxiv.org/abs/2210.07809)\]
+This repository includes official PyTorch implementation of the paper "Free Fine-tuning: A Plug-and-Play Watermarking Scheme for Deep Neural Networks". (ACM Multimedia 2023 Poster) \[[arXiv](http://arxiv.org/abs/2210.07809)\]
 
 ## Get Started
 
