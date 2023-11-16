@@ -61,7 +61,7 @@ class GNBG:
             output = model(x)
             y = y.cuda()
             y = y.to(torch.long)
-            pred = output.max(1, keepdim=True)[1]  # 找到概率最大的下标
+            pred = output.max(1, keepdim=True)[1]
             total += y.numel()
             correct += pred.eq(y.view_as(pred)).sum().item()
         print("test accuracy" + '*' * 10)
@@ -75,12 +75,12 @@ class GNBG:
         model = nn.DataParallel(model)
         model.train()
         optimizer = optim.Adam(model.parameters(), lr=0.001)
-        criterion = nn.CrossEntropyLoss()  # 损失函数也可以自己定义，我们这里用的交叉熵损失函数
+        criterion = nn.CrossEntropyLoss()
         data_transform = transforms.Compose([
             transforms.Resize(224),
             transforms.CenterCrop(224),
             transforms.RandomHorizontalFlip(),
-            transforms.RandomRotation(15),  # 数据增强
+            transforms.RandomRotation(15),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                  std=[0.229, 0.224, 0.225])
@@ -91,34 +91,27 @@ class GNBG:
             train_dataset, batch_size=32, shuffle=True, num_workers=4)
         # valloader=datasets.Imagenet_val()
         # 训练部分
-        for epoch in range(50):  # 训练的数据量为5个epoch，每个epoch为一个循环
-            # 每个epoch要训练所有的图片，每训练完成200张便打印一下训练的效果（loss值）
-            running_loss = 0.0  # 定义一个变量方便我们对loss进行输出
-            # 这里我们遇到了第一步中出现的trailoader，代码传入数据
+        for epoch in range(50):
+            running_loss = 0.0
             for i, data in enumerate(trainloader, 0):
-                # enumerate是python的内置函数，既获得索引也获得数据
-                # get the inputs
-                inputs, labels = data  # data是从enumerate返回的data，包含数据和标签信息，分别赋值给inputs和labels
+                inputs, labels = data
                 inputs, labels = inputs.cuda(), labels.cuda()
                 # wrap them in Variable
                 inputs, labels = Variable(inputs), Variable(
-                    labels)  # 转换数据格式用Variable
-                optimizer.zero_grad()  # 梯度置零，因为反向传播过程中梯度会累加上一次循环的梯度
-
-                # forward + backward + optimize
-                outputs = model(inputs)  # 把数据输进CNN网络net
-                loss = criterion(outputs, labels)  # 计算损失值
-                loss.backward()  # loss反向传播
-                optimizer.step()  # 反向传播后参数更新
-                running_loss += loss.data  # loss累加
+                    labels)
+                optimizer.zero_grad()
+                outputs = model(inputs)
+                loss = criterion(outputs, labels)
+                loss.backward()
+                optimizer.step()
+                running_loss += loss.data
                 if i % 200 == 199:
                     print('[%d, %5d] loss: %.3f' %
-                          (epoch + 1, i + 1, running_loss / 200))  # 然后再除以200，就得到这两百次的平均损失值
-                    running_loss = 0.0  # 这一个200次结束后，就把running_loss归零，下一个200次继续使用
+                          (epoch + 1, i + 1, running_loss / 200)) 
+                    running_loss = 0.0 
         print('Finished Training')
-        # 保存神经网络
-        torch.save(model, 'GNNet2.pkl')  # 保存整个神经网络的结构和模型参数
-        # torch.save(model.state_dict(), 'GNNet_params.pkl')  # 只保存神经网络的模型参数
+        torch.save(model, 'GNNet2.pkl')  
+        # torch.save(model.state_dict(), 'GNNet_params.pkl') 
 
     def val_document(self):
         model = torch.load('')
@@ -143,7 +136,7 @@ class GNBG:
             y = y.cuda()
             y = y.to(torch.long)
             print(output)
-            pred = output.max(1, keepdim=True)[1]  # 找到概率最大的下标
+            pred = output.max(1, keepdim=True)[1] 
             correct += pred.eq(y.view_as(pred)).sum().item()
             print(y)
             print(pred)
@@ -183,7 +176,7 @@ class GNBG:
             output = model(x)
             y = y.cuda()
             y = y.to(torch.long)
-            pred = output.max(1, keepdim=True)[1]  # 找到概率最大的下标
+            pred = output.max(1, keepdim=True)[1]
             print(y)
             print(pred[0])
             plt.xlabel("prediction: " + str(pred[0]))
@@ -210,7 +203,7 @@ class GNBG:
             output = model(x)
             y = y.cuda()
             y = y.to(torch.long)
-            pred = output.max(1, keepdim=True)[1]  # 找到概率最大的下标
+            pred = output.max(1, keepdim=True)[1]
             print(y)
             print(pred[0])
             plt.xlabel(str(pred[0]))
@@ -240,7 +233,7 @@ class GNBG:
             output = model(x)
             y = y.cuda()
             y = y.to(torch.long)
-            pred = output.max(1, keepdim=True)[1]  # 找到概率最大的下标
+            pred = output.max(1, keepdim=True)[1]
             total += y.numel()
             correct += pred.eq(y.view_as(pred)).sum().item()
             print(y)
