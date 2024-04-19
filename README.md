@@ -19,7 +19,5 @@ After activating conda environment, please install the dependencies running the 
 pip install -r requirements.txt
 ```
 
-Our models and datasets will be available soon.
-
 
 
